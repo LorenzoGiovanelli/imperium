@@ -1,0 +1,3379 @@
+settings:
+  view-grouping:
+    grouping1:
+      type: individual
+      default-scene: tendenza
+  dithering: false
+  reset-on-radius-exit: false
+
+scenes:
+
+  ######################################################
+  # SCENA: TENDENZA  (Tendenza evidenziata)
+  ######################################################
+  tendenza:
+    background:
+      type: background
+      position: 0 0
+      size: max max
+      color: black
+      children:
+
+        main_image:
+          type: image
+          position: 0 0
+          size: "100% 100%"
+          image:
+            name: "tendenza.png"
+
+        # ---------- RANKING (gradino alto sinistra) ----------
+        button_ranking:
+          type: button
+          position: 70 505
+          size: 190 60
+          color: 0 0 0 120
+          corner-radius: 30
+          outline-color: 0 0 0 0
+          outline-width: 0
+          on-hover-outline-color: 0 210 255 255
+          on-hover-outline-width: 3
+          on-hover-color: 20 20 20 180
+          on-click:
+            to_ranking:
+              type: switch_scene
+              scene: ranking
+          children:
+            label:
+              type: text
+              position: 15 12
+              text: "Ranking"
+              font: "interextrabold"
+              font-size: 29
+              color: 255 255 255
+            icon:
+              type: image
+              position: 140 8
+              size: 38 38
+              image:
+                name: "ranking.png"
+
+        # ---------- FAZIONI (gradino basso sinistra) ----------
+        button_fazioni:
+          type: button
+          position: 290 540
+          size: 220 60
+          color: 0 0 0 120
+          corner-radius: 30
+          outline-color: 0 0 0 0
+          outline-width: 0
+          on-hover-outline-color: 0 210 255 255
+          on-hover-outline-width: 3
+          on-hover-color: 20 20 20 180
+          on-click:
+            to_fazioni:
+              type: switch_scene
+              scene: fazioni
+          children:
+            label:
+              type: text
+              position: 52 12
+              text: "Fazioni"
+              font: "interextrabold"
+              font-size: 29
+              color: 255 255 255
+            icon:
+              type: image
+              position: 168 12
+              size: 38 38
+              image:
+                name: "scudo.png"
+
+        # ---------- TENDENZA (centro basso, ATTIVO) ----------
+        button_tendenza:
+          type: button
+          position: 573 550
+          size: 250 60
+          color: 0 170 255 220
+          corner-radius: 30
+          outline-color: 0 210 255 255
+          outline-width: 3
+          on-hover-color: 0 190 255 255
+          children:
+            label:
+              type: text
+              position: 55 12
+              text: "Tendenza"
+              font: "interextrabold"
+              font-size: 29
+              color: 255 255 255
+            icon:
+              type: image
+              position: 213 14
+              size: 28 28
+              image:
+                name: "star.png"
+            icon2:
+              type: image
+              position: 9 14
+              size: 28 28
+              image:
+                name: "star.png"
+
+        # ---------- UCCISIONI (gradino alto destra) ----------
+        button_uccisioni:
+          type: button
+          position: 898 540
+          size: 220 60
+          color: 0 0 0 120
+          corner-radius: 30
+          outline-color: 0 0 0 0
+          outline-width: 0
+          on-hover-outline-color: 0 210 255 255
+          on-hover-outline-width: 3
+          on-hover-color: 20 20 20 180
+          on-click:
+            to_uccisioni:
+              type: switch_scene
+              scene: uccisioni
+          children:
+            label:
+              type: text
+              position: 70 12
+              text: "Uccisioni"
+              font: "interextrabold"
+              font-size: 29
+              color: 255 255 255
+            icon:
+              type: image
+              position: 15 12
+              size: 38 38
+              image:
+                name: "sword.png"
+
+        # ---------- MORTI (gradino basso destra) ----------
+        button_morti:
+          type: button
+          position: 1150 505
+          size: 190 60
+          color: 0 0 0 120
+          corner-radius: 30
+          outline-color: 0 0 0 0
+          outline-width: 0
+          on-hover-outline-color: 0 210 255 255
+          on-hover-outline-width: 3
+          on-hover-color: 20 20 20 180
+          on-click:
+            to_morti:
+              type: switch_scene
+              scene: morti
+          children:
+            label:
+              type: text
+              position: 60 12
+              text: "Morti"
+              font: "interextrabold"
+              font-size: 29
+              color: 255 255 255
+            icon:
+              type: image
+              position: 10 10
+              size: 38 38
+              image:
+                name: "morti.png"
+
+
+
+  ######################################################
+  # SCENA: UCCISIONI  (Uccisioni evidenziata)
+  ######################################################
+
+  uccisioni:
+    background:
+      type: background
+      position: 0 0
+      size: max max
+      color: black
+      children:
+
+        main_image:
+          type: image
+          position: 0 0
+          size: "100% 100%"
+          image:
+            name: "banner.png"
+
+        # LOGO IMPERIUM IN ALTO A DESTRA
+        logo_button:
+          type: button
+          position: 1040 40
+          size: 300 140
+          color: 0 0 0 0
+          corner-radius: 30
+          outline-color: 0 0 0 0
+          outline-width: 0
+          on-hover-color: 0 0 0 120
+          on-hover-outline-color: 200 40 40 220
+          on-hover-outline-width: 3
+          on-click:
+            open_store:
+              type: command
+              execute-from-console: true
+              command:
+                - 'tellraw %player_name% {"text":"§a§lVisita il nostro store: ","extra":[{"text":"store.imperiumcity.it","bold":true,"underlined":true,"color":"white","clickEvent":{"action":"open_url","value":"https://store.imperiumcity.it"}}]}'
+                - 'title %player_name% title {"text":"Visita il nostro store sotto","color":"green","bold":true}'
+                - 'title %player_name% subtitle {"text":"store.imperiumcity.it","color":"white","bold":true}'
+          children:
+            logo_image:
+              type: image
+              position: 30 -23
+              size: 250 210
+              image:
+                name: "logo.png"
+
+        # TITOLO - SETTIMANALE
+        kills_title:
+          type: text
+          position: 80 70
+          text: "Classifica Uccisioni - Settimanale"
+          font: "interextrabold"
+          font-size: 34
+          color: 255 255 255
+
+        #####################################
+        #   COLONNE TOP 1-10 (SETTIMANALE)
+        #####################################
+
+        # --- COLONNA SINISTRA (1-5) ---
+
+        kills_row_bg_1:
+          type: button
+          position: 60 138
+          size: 480 40
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 20
+          outline-color: 0 0 0 0
+          outline-width: 0
+          children:
+            head_1:
+              type: head_2d
+              position: 10 5
+              size: 30 30
+              skin: "%imperiumuser_topsett1kills_name%"
+            name_1:
+              type: text
+              position: 60 7
+              text: "1. %imperiumuser_topsett1kills_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            value_1:
+              type: text
+              position: -50 7
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_topsett1kills_value%"
+              font: "interextrabold"
+              font-size: 24
+              color: 255 215 0
+            icon_1:
+              type: image
+              position: -10 6
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "kill.png"
+
+        kills_row_bg_2:
+          type: button
+          position: 60 184
+          size: 480 40
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 20
+          outline-color: 0 0 0 0
+          outline-width: 0
+          children:
+            head_2:
+              type: head_2d
+              position: 10 5
+              size: 30 30
+              skin: "%imperiumuser_topsett2kills_name%"
+            name_2:
+              type: text
+              position: 60 7
+              text: "2. %imperiumuser_topsett2kills_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            value_2:
+              type: text
+              position: -50 7
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_topsett2kills_value%"
+              font: "interextrabold"
+              font-size: 24
+              color: 255 215 0
+            icon_2:
+              type: image
+              position: -10 6
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "kill.png"
+
+        kills_row_bg_3:
+          type: button
+          position: 60 230
+          size: 480 40
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 20
+          outline-color: 0 0 0 0
+          outline-width: 0
+          children:
+            head_3:
+              type: head_2d
+              position: 10 5
+              size: 30 30
+              skin: "%imperiumuser_topsett3kills_name%"
+            name_3:
+              type: text
+              position: 60 7
+              text: "3. %imperiumuser_topsett3kills_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            value_3:
+              type: text
+              position: -50 7
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_topsett3kills_value%"
+              font: "interextrabold"
+              font-size: 24
+              color: 255 215 0
+            icon_3:
+              type: image
+              position: -10 6
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "kill.png"
+
+        kills_row_bg_4:
+          type: button
+          position: 60 276
+          size: 480 40
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 20
+          outline-color: 0 0 0 0
+          outline-width: 0
+          children:
+            head_4:
+              type: head_2d
+              position: 10 5
+              size: 30 30
+              skin: "%imperiumuser_topsett4kills_name%"
+            name_4:
+              type: text
+              position: 60 7
+              text: "4. %imperiumuser_topsett4kills_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            value_4:
+              type: text
+              position: -50 7
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_topsett4kills_value%"
+              font: "interextrabold"
+              font-size: 24
+              color: 255 215 0
+            icon_4:
+              type: image
+              position: -10 6
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "kill.png"
+
+        kills_row_bg_5:
+          type: button
+          position: 60 322
+          size: 480 40
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 20
+          outline-color: 0 0 0 0
+          outline-width: 0
+          children:
+            head_5:
+              type: head_2d
+              position: 10 5
+              size: 30 30
+              skin: "%imperiumuser_topsett5kills_name%"
+            name_5:
+              type: text
+              position: 60 7
+              text: "5. %imperiumuser_topsett5kills_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            value_5:
+              type: text
+              position: -50 7
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_topsett5kills_value%"
+              font: "interextrabold"
+              font-size: 24
+              color: 255 215 0
+            icon_5:
+              type: image
+              position: -10 6
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "kill.png"
+
+        # --- COLONNA DESTRA (6-10) ---
+
+        kills_row_bg_6:
+          type: button
+          position: 550 138
+          size: 480 40
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 20
+          outline-color: 0 0 0 0
+          outline-width: 0
+          children:
+            head_6:
+              type: head_2d
+              position: 10 5
+              size: 30 30
+              skin: "%imperiumuser_topsett6kills_name%"
+            name_6:
+              type: text
+              position: 60 7
+              text: "6. %imperiumuser_topsett6kills_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            value_6:
+              type: text
+              position: -50 7
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_topsett6kills_value%"
+              font: "interextrabold"
+              font-size: 24
+              color: 255 215 0
+            icon_6:
+              type: image
+              position: -10 6
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "kill.png"
+
+        kills_row_bg_7:
+          type: button
+          position: 550 184
+          size: 480 40
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 20
+          outline-color: 0 0 0 0
+          outline-width: 0
+          children:
+            head_7:
+              type: head_2d
+              position: 10 5
+              size: 30 30
+              skin: "%imperiumuser_topsett7kills_name%"
+            name_7:
+              type: text
+              position: 60 7
+              text: "7. %imperiumuser_topsett7kills_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            value_7:
+              type: text
+              position: -50 7
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_topsett7kills_value%"
+              font: "interextrabold"
+              font-size: 24
+              color: 255 215 0
+            icon_7:
+              type: image
+              position: -10 6
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "kill.png"
+
+        kills_row_bg_8:
+          type: button
+          position: 550 230
+          size: 480 40
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 20
+          outline-color: 0 0 0 0
+          outline-width: 0
+          children:
+            head_8:
+              type: head_2d
+              position: 10 5
+              size: 30 30
+              skin: "%imperiumuser_topsett8kills_name%"
+            name_8:
+              type: text
+              position: 60 7
+              text: "8. %imperiumuser_topsett8kills_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            value_8:
+              type: text
+              position: -50 7
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_topsett8kills_value%"
+              font: "interextrabold"
+              font-size: 24
+              color: 255 215 0
+            icon_8:
+              type: image
+              position: -10 6
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "kill.png"
+
+        kills_row_bg_9:
+          type: button
+          position: 550 276
+          size: 480 40
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 20
+          outline-color: 0 0 0 0
+          outline-width: 0
+          children:
+            head_9:
+              type: head_2d
+              position: 10 5
+              size: 30 30
+              skin: "%imperiumuser_topsett9kills_name%"
+            name_9:
+              type: text
+              position: 60 7
+              text: "9. %imperiumuser_topsett9kills_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            value_9:
+              type: text
+              position: -50 7
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_topsett9kills_value%"
+              font: "interextrabold"
+              font-size: 24
+              color: 255 215 0
+            icon_9:
+              type: image
+              position: -10 6
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "kill.png"
+
+        kills_row_bg_10:
+          type: button
+          position: 550 322
+          size: 480 40
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 20
+          outline-color: 0 0 0 0
+          outline-width: 0
+          children:
+            head_10:
+              type: head_2d
+              position: 10 5
+              size: 30 30
+              skin: "%imperiumuser_topsett10kills_name%"
+            name_10:
+              type: text
+              position: 60 7
+              text: "10. %imperiumuser_topsett10kills_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            value_10:
+              type: text
+              position: -50 7
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_topsett10kills_value%"
+              font: "interextrabold"
+              font-size: 24
+              color: 255 215 0
+            icon_10:
+              type: image
+              position: -10 6
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "kill.png"
+
+        #####################################
+        #  BARRA DEL GIOCATORE CHE GUARDA
+        #####################################
+
+        kills_self_bar:
+          type: button
+          position: 220 395
+          size: 720 60
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 25
+          outline-color: 255 215 0 255
+          outline-width: 2
+          children:
+            self_head:
+              type: head_2d
+              position: 20 13
+              size: 34 34
+              skin: "%player_name%"
+            self_rank:
+              type: text
+              position: 80 16
+              text: "#%imperiumuser_classificasett_kills%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 215 0
+            self_name:
+              type: text
+              position: 240 16
+              text: "%player_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            self_value:
+              type: text
+              position: -50 16
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_classificasettkills_value%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            self_icon:
+              type: image
+              position: -10 15
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "kill.png"
+
+        #####################################
+        #  PULSANTI CLASSIFICA A DESTRA
+        #####################################
+
+        # Settimanale (in alto – ATTIVO in questa scena)
+        classifica_settimanale_panel:
+          type: button
+          position: 1070 185
+          size: 260 90
+          color: 0 0 0 150
+          on-hover-color: 0 0 0 150
+          corner-radius: 25
+          outline-color: 200 40 40 220
+          outline-width: 3
+          children:
+            classifica_sett_label:
+              type: text
+              position: 20 10
+              text: "Classifica"
+              font-size: 22
+              color: 255 255 255
+            settimanale_label:
+              type: text
+              position: 20 40
+              text: "Settimanale"
+              font: "interextrabold"
+              font-size: 30
+              color: 255 215 0
+            sett_underline:
+              type: button
+              position: 10 74
+              size: 200 4
+              color: 200 40 40 220
+              corner-radius: 2
+              outline-color: 0 0 0 0
+              outline-width: 0
+
+        # Giornaliera (al centro – cliccabile)
+        classifica_giornaliera_panel:
+          type: button
+          position: 1070 285
+          size: 260 90
+          color: 0 0 0 150
+          on-hover-color: 0 0 0 150
+          corner-radius: 25
+          outline-color: 60 60 60 220
+          outline-width: 2
+          on-hover-outline-color: 200 40 40 220
+          on-hover-outline-width: 3
+          on-click:
+            to_giornaliera:
+              type: switch_scene
+              scene: uccisioni_giornaliera
+          children:
+            classifica_gior_label:
+              type: text
+              position: 20 10
+              text: "Classifica"
+              font-size: 22
+              color: 255 255 255
+            giornaliera_label:
+              type: text
+              position: 20 40
+              text: "Giornaliera"
+              font: "interextrabold"
+              font-size: 30
+              color: 255 255 255
+            gior_underline:
+              type: button
+              position: 10 74
+              size: 200 4
+              color: 120 120 120 220
+              corner-radius: 2
+              outline-color: 0 0 0 0
+              outline-width: 0
+
+        # Totale (in basso – cliccabile)
+        classifica_totale_panel:
+          type: button
+          position: 1070 385
+          size: 260 90
+          color: 0 0 0 150
+          on-hover-color: 0 0 0 150
+          corner-radius: 25
+          outline-color: 60 60 60 220
+          outline-width: 2
+          on-hover-outline-color: 200 40 40 220
+          on-hover-outline-width: 3
+          on-click:
+            to_totale:
+              type: switch_scene
+              scene: uccisioni_totale
+          children:
+            classifica_totale_label:
+              type: text
+              position: 20 10
+              text: "Classifica"
+              font-size: 22
+              color: 255 255 255
+            totale_label:
+              type: text
+              position: 20 40
+              text: "Totale"
+              font: "interextrabold"
+              font-size: 30
+              color: 255 255 255
+            totale_underline:
+              type: button
+              position: 10 74
+              size: 200 4
+              color: 120 120 120 220
+              corner-radius: 2
+              outline-color: 0 0 0 0
+              outline-width: 0
+
+        #####################################
+        #  MENU IN BASSO (INVARIATO)
+        #####################################
+
+        button_ranking:
+          type: button
+          position: 70 505
+          size: 190 60
+          color: 0 0 0 120
+          corner-radius: 30
+          outline-color: 0 0 0 0
+          outline-width: 0
+          on-hover-outline-color: 0 210 255 255
+          on-hover-outline-width: 3
+          on-hover-color: 20 20 20 180
+          on-click:
+            to_ranking:
+              type: switch_scene
+              scene: ranking
+          children:
+            label:
+              type: text
+              position: 15 12
+              text: "Ranking"
+              font: "interextrabold"
+              font-size: 29
+              color: 255 255 255
+            icon:
+              type: image
+              position: 140 8
+              size: 38 38
+              image:
+                name: "ranking.png"
+
+        button_fazioni:
+          type: button
+          position: 290 540
+          size: 220 60
+          color: 0 0 0 120
+          corner-radius: 30
+          outline-color: 0 0 0 0
+          outline-width: 0
+          on-hover-outline-color: 0 210 255 255
+          on-hover-outline-width: 3
+          on-hover-color: 20 20 20 180
+          on-click:
+            to_fazioni:
+              type: switch_scene
+              scene: fazioni
+          children:
+            label:
+              type: text
+              position: 52 12
+              text: "Fazioni"
+              font: "interextrabold"
+              font-size: 29
+              color: 255 255 255
+            icon:
+              type: image
+              position: 168 12
+              size: 38 38
+              image:
+                name: "scudo.png"
+
+        button_tendenza:
+          type: button
+          position: 573 550
+          size: 250 60
+          color: 0 0 0 120
+          corner-radius: 30
+          outline-color: 0 0 0 0
+          outline-width: 0
+          on-hover-outline-color: 0 210 255 255
+          on-hover-outline-width: 3
+          on-hover-color: 20 20 20 180
+          on-click:
+            to_tendenza:
+              type: switch_scene
+              scene: tendenza
+          children:
+            label:
+              type: text
+              position: 55 12
+              text: "Tendenza"
+              font: "interextrabold"
+              font-size: 29
+              color: 255 255 255
+            icon:
+              type: image
+              position: 213 14
+              size: 28 28
+              image:
+                name: "star.png"
+            icon2:
+              type: image
+              position: 9 14
+              size: 28 28
+              image:
+                name: "star.png"
+
+        button_uccisioni:
+          type: button
+          position: 898 540
+          size: 220 60
+          color: 0 170 255 220
+          corner-radius: 30
+          outline-color: 0 210 255 255
+          outline-width: 3
+          on-hover-color: 0 190 255 255
+          children:
+            label:
+              type: text
+              position: 70 12
+              text: "Uccisioni"
+              font: "interextrabold"
+              font-size: 29
+              color: 255 255 255
+            icon:
+              type: image
+              position: 15 12
+              size: 38 38
+              image:
+                name: "sword.png"
+
+        button_morti:
+          type: button
+          position: 1150 505
+          size: 190 60
+          color: 0 0 0 120
+          corner-radius: 30
+          outline-color: 0 0 0 0
+          outline-width: 0
+          on-hover-outline-color: 0 210 255 255
+          on-hover-outline-width: 3
+          on-hover-color: 20 20 20 180
+          on-click:
+            to_morti:
+              type: switch_scene
+              scene: morti
+          children:
+            label:
+              type: text
+              position: 60 12
+              text: "Morti"
+              font: "interextrabold"
+              font-size: 29
+              color: 255 255 255
+            icon:
+              type: image
+              position: 10 10
+              size: 38 38
+              image:
+                name: "morti.png"
+
+  uccisioni_giornaliera:
+    background:
+      type: background
+      position: 0 0
+      size: max max
+      color: black
+      children:
+
+        main_image:
+          type: image
+          position: 0 0
+          size: "100% 100%"
+          image:
+            name: "banner.png"
+
+        # LOGO IMPERIUM (uguale alla scena uccisioni)
+       
+        logo_button:
+          type: button
+          position: 1040 40
+          size: 300 140
+          color: 0 0 0 0
+          corner-radius: 30
+          outline-color: 0 0 0 0
+          outline-width: 0
+          on-hover-color: 0 0 0 120
+          on-hover-outline-color: 200 40 40 220
+          on-hover-outline-width: 3
+          on-click:
+            open_store:
+              type: command
+              execute-from-console: true
+              command:
+                - 'tellraw %player_name% {"text":"§a§lVisita il nostro store: ","extra":[{"text":"store.imperiumcity.it","bold":true,"underlined":true,"color":"white","clickEvent":{"action":"open_url","value":"https://store.imperiumcity.it"}}]}'
+                - 'title %player_name% title {"text":"Visita il nostro store sotto","color":"green","bold":true}'
+                - 'title %player_name% subtitle {"text":"store.imperiumcity.it","color":"white","bold":true}'
+          children:
+            logo_image:
+              type: image
+              position: 30 -23
+              size: 250 210
+              image:
+                name: "logo.png"
+
+        # TITOLO - GIORNALIERA
+        kills_title:
+          type: text
+          position: 80 70
+          text: "Classifica Uccisioni - Giornaliera"
+          font: "interextrabold"
+          font-size: 34
+          color: 255 255 255
+
+        #####################################
+        #   COLONNE TOP 1-10 (GIORNALIERA)
+        #####################################
+
+        # --- COLONNA SINISTRA (1-5) ---
+
+        kills_row_bg_1:
+          type: button
+          position: 60 138
+          size: 480 40
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 20
+          outline-color: 0 0 0 0
+          outline-width: 0
+          children:
+            head_1:
+              type: head_2d
+              position: 10 5
+              size: 30 30
+              skin: "%imperiumuser_topgio1kills_name%"
+            name_1:
+              type: text
+              position: 60 7
+              text: "1. %imperiumuser_topgio1kills_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            value_1:
+              type: text
+              position: -50 7
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_topgio1kills_value%"
+              font: "interextrabold"
+              font-size: 24
+              color: 255 215 0
+            icon_1:
+              type: image
+              position: -10 6
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "kill.png"
+
+        kills_row_bg_2:
+          type: button
+          position: 60 184
+          size: 480 40
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 20
+          outline-color: 0 0 0 0
+          outline-width: 0
+          children:
+            head_2:
+              type: head_2d
+              position: 10 5
+              size: 30 30
+              skin: "%imperiumuser_topgio2kills_name%"
+            name_2:
+              type: text
+              position: 60 7
+              text: "2. %imperiumuser_topgio2kills_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            value_2:
+              type: text
+              position: -50 7
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_topgio2kills_value%"
+              font: "interextrabold"
+              font-size: 24
+              color: 255 215 0
+            icon_2:
+              type: image
+              position: -10 6
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "kill.png"
+
+        kills_row_bg_3:
+          type: button
+          position: 60 230
+          size: 480 40
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 20
+          outline-color: 0 0 0 0
+          outline-width: 0
+          children:
+            head_3:
+              type: head_2d
+              position: 10 5
+              size: 30 30
+              skin: "%imperiumuser_topgio3kills_name%"
+            name_3:
+              type: text
+              position: 60 7
+              text: "3. %imperiumuser_topgio3kills_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            value_3:
+              type: text
+              position: -50 7
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_topgio3kills_value%"
+              font: "interextrabold"
+              font-size: 24
+              color: 255 215 0
+            icon_3:
+              type: image
+              position: -10 6
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "kill.png"
+
+        kills_row_bg_4:
+          type: button
+          position: 60 276
+          size: 480 40
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 20
+          outline-color: 0 0 0 0
+          outline-width: 0
+          children:
+            head_4:
+              type: head_2d
+              position: 10 5
+              size: 30 30
+              skin: "%imperiumuser_topgio4kills_name%"
+            name_4:
+              type: text
+              position: 60 7
+              text: "4. %imperiumuser_topgio4kills_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            value_4:
+              type: text
+              position: -50 7
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_topgio4kills_value%"
+              font: "interextrabold"
+              font-size: 24
+              color: 255 215 0
+            icon_4:
+              type: image
+              position: -10 6
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "kill.png"
+
+        kills_row_bg_5:
+          type: button
+          position: 60 322
+          size: 480 40
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 20
+          outline-color: 0 0 0 0
+          outline-width: 0
+          children:
+            head_5:
+              type: head_2d
+              position: 10 5
+              size: 30 30
+              skin: "%imperiumuser_topgio5kills_name%"
+            name_5:
+              type: text
+              position: 60 7
+              text: "5. %imperiumuser_topgio5kills_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            value_5:
+              type: text
+              position: -50 7
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_topgio5kills_value%"
+              font: "interextrabold"
+              font-size: 24
+              color: 255 215 0
+            icon_5:
+              type: image
+              position: -10 6
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "kill.png"
+
+        # --- COLONNA DESTRA (6-10) ---
+
+        kills_row_bg_6:
+          type: button
+          position: 550 138
+          size: 480 40
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 20
+          outline-color: 0 0 0 0
+          outline-width: 0
+          children:
+            head_6:
+              type: head_2d
+              position: 10 5
+              size: 30 30
+              skin: "%imperiumuser_topgio6kills_name%"
+            name_6:
+              type: text
+              position: 60 7
+              text: "6. %imperiumuser_topgio6kills_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            value_6:
+              type: text
+              position: -50 7
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_topgio6kills_value%"
+              font: "interextrabold"
+              font-size: 24
+              color: 255 215 0
+            icon_6:
+              type: image
+              position: -10 6
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "kill.png"
+
+        kills_row_bg_7:
+          type: button
+          position: 550 184
+          size: 480 40
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 20
+          outline-color: 0 0 0 0
+          outline-width: 0
+          children:
+            head_7:
+              type: head_2d
+              position: 10 5
+              size: 30 30
+              skin: "%imperiumuser_topgio7kills_name%"
+            name_7:
+              type: text
+              position: 60 7
+              text: "7. %imperiumuser_topgio7kills_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            value_7:
+              type: text
+              position: -50 7
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_topgio7kills_value%"
+              font: "interextrabold"
+              font-size: 24
+              color: 255 215 0
+            icon_7:
+              type: image
+              position: -10 6
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "kill.png"
+
+        kills_row_bg_8:
+          type: button
+          position: 550 230
+          size: 480 40
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 20
+          outline-color: 0 0 0 0
+          outline-width: 0
+          children:
+            head_8:
+              type: head_2d
+              position: 10 5
+              size: 30 30
+              skin: "%imperiumuser_topgio8kills_name%"
+            name_8:
+              type: text
+              position: 60 7
+              text: "8. %imperiumuser_topgio8kills_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            value_8:
+              type: text
+              position: -50 7
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_topgio8kills_value%"
+              font: "interextrabold"
+              font-size: 24
+              color: 255 215 0
+            icon_8:
+              type: image
+              position: -10 6
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "kill.png"
+
+        kills_row_bg_9:
+          type: button
+          position: 550 276
+          size: 480 40
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 20
+          outline-color: 0 0 0 0
+          outline-width: 0
+          children:
+            head_9:
+              type: head_2d
+              position: 10 5
+              size: 30 30
+              skin: "%imperiumuser_topgio9kills_name%"
+            name_9:
+              type: text
+              position: 60 7
+              text: "9. %imperiumuser_topgio9kills_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            value_9:
+              type: text
+              position: -50 7
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_topgio9kills_value%"
+              font: "interextrabold"
+              font-size: 24
+              color: 255 215 0
+            icon_9:
+              type: image
+              position: -10 6
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "kill.png"
+
+        kills_row_bg_10:
+          type: button
+          position: 550 322
+          size: 480 40
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 20
+          outline-color: 0 0 0 0
+          outline-width: 0
+          children:
+            head_10:
+              type: head_2d
+              position: 10 5
+              size: 30 30
+              skin: "%imperiumuser_topgio10kills_name%"
+            name_10:
+              type: text
+              position: 60 7
+              text: "10. %imperiumuser_topgio10kills_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            value_10:
+              type: text
+              position: -50 7
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_topgio10kills_value%"
+              font: "interextrabold"
+              font-size: 24
+              color: 255 215 0
+            icon_10:
+              type: image
+              position: -10 6
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "kill.png"
+
+        #####################################
+        #  BARRA DEL GIOCATORE CHE GUARDA
+        #####################################
+
+        kills_self_bar:
+          type: button
+          position: 220 395
+          size: 720 60
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 25
+          outline-color: 255 215 0 255
+          outline-width: 2
+          children:
+            self_head:
+              type: head_2d
+              position: 20 13
+              size: 34 34
+              skin: "%player_name%"
+            self_rank:
+              type: text
+              position: 80 16
+              text: "#%imperiumuser_classificagio_kills%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 215 0
+            self_name:
+              type: text
+              position: 240 16
+              text: "%player_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            self_value:
+              type: text
+              position: -50 16
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_classificakills_value%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            self_icon:
+              type: image
+              position: -10 15
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "kill.png"
+
+        #####################################
+        #  PULSANTI CLASSIFICA A DESTRA
+        #####################################
+
+        # Settimanale (cliccabile, sopra)
+        classifica_settimanale_panel:
+          type: button
+          position: 1070 185
+          size: 260 90
+          color: 0 0 0 150
+          on-hover-color: 0 0 0 150
+          corner-radius: 25
+          outline-color: 60 60 60 220
+          outline-width: 2
+          on-hover-outline-color: 200 40 40 220
+          on-hover-outline-width: 3
+          on-click:
+            to_settimanale:
+              type: switch_scene
+              scene: uccisioni
+          children:
+            classifica_sett_label:
+              type: text
+              position: 20 10
+              text: "Classifica"
+              font-size: 22
+              color: 255 255 255
+            settimanale_label:
+              type: text
+              position: 20 40
+              text: "Settimanale"
+              font: "interextrabold"
+              font-size: 30
+              color: 255 255 255
+            sett_underline:
+              type: button
+              position: 10 74
+              size: 200 4
+              color: 120 120 120 220
+              corner-radius: 2
+              outline-color: 0 0 0 0
+              outline-width: 0
+
+        # Giornaliera (ATTIVA – centro)
+        classifica_giornaliera_panel:
+          type: button
+          position: 1070 285
+          size: 260 90
+          color: 0 0 0 150
+          on-hover-color: 0 0 0 150
+          corner-radius: 25
+          outline-color: 200 40 40 220
+          outline-width: 3
+          children:
+            classifica_gior_label:
+              type: text
+              position: 20 10
+              text: "Classifica"
+              font-size: 22
+              color: 255 255 255
+            giornaliera_label:
+              type: text
+              position: 20 40
+              text: "Giornaliera"
+              font: "interextrabold"
+              font-size: 30
+              color: 255 215 0
+            gior_underline:
+              type: button
+              position: 10 74
+              size: 200 4
+              color: 200 40 40 220
+              corner-radius: 2
+              outline-color: 0 0 0 0
+              outline-width: 0
+
+        # Totale (cliccabile – sotto)
+        classifica_totale_panel:
+          type: button
+          position: 1070 385
+          size: 260 90
+          color: 0 0 0 150
+          on-hover-color: 0 0 0 150
+          corner-radius: 25
+          outline-color: 60 60 60 220
+          outline-width: 2
+          on-hover-outline-color: 200 40 40 220
+          on-hover-outline-width: 3
+          on-click:
+            to_totale:
+              type: switch_scene
+              scene: uccisioni_totale
+          children:
+            classifica_totale_label:
+              type: text
+              position: 20 10
+              text: "Classifica"
+              font-size: 22
+              color: 255 255 255
+            totale_label:
+              type: text
+              position: 20 40
+              text: "Totale"
+              font: "interextrabold"
+              font-size: 30
+              color: 255 255 255
+            totale_underline:
+              type: button
+              position: 10 74
+              size: 200 4
+              color: 120 120 120 220
+              corner-radius: 2
+              outline-color: 0 0 0 0
+              outline-width: 0
+
+        #####################################
+        #  MENU IN BASSO (UGUALE)
+        #####################################
+
+        button_ranking:
+          type: button
+          position: 70 505
+          size: 190 60
+          color: 0 0 0 120
+          corner-radius: 30
+          outline-color: 0 0 0 0
+          outline-width: 0
+          on-hover-outline-color: 0 210 255 255
+          on-hover-outline-width: 3
+          on-hover-color: 20 20 20 180
+          on-click:
+            to_ranking:
+              type: switch_scene
+              scene: ranking
+          children:
+            label:
+              type: text
+              position: 15 12
+              text: "Ranking"
+              font: "interextrabold"
+              font-size: 29
+              color: 255 255 255
+            icon:
+              type: image
+              position: 140 8
+              size: 38 38
+              image:
+                name: "ranking.png"
+
+        button_fazioni:
+          type: button
+          position: 290 540
+          size: 220 60
+          color: 0 0 0 120
+          corner-radius: 30
+          outline-color: 0 0 0 0
+          outline-width: 0
+          on-hover-outline-color: 0 210 255 255
+          on-hover-outline-width: 3
+          on-hover-color: 20 20 20 180
+          on-click:
+            to_fazioni:
+              type: switch_scene
+              scene: fazioni
+          children:
+            label:
+              type: text
+              position: 52 12
+              text: "Fazioni"
+              font: "interextrabold"
+              font-size: 29
+              color: 255 255 255
+            icon:
+              type: image
+              position: 168 12
+              size: 38 38
+              image:
+                name: "scudo.png"
+
+        button_tendenza:
+          type: button
+          position: 573 550
+          size: 250 60
+          color: 0 0 0 120
+          corner-radius: 30
+          outline-color: 0 0 0 0
+          outline-width: 0
+          on-hover-outline-color: 0 210 255 255
+          on-hover-outline-width: 3
+          on-hover-color: 20 20 20 180
+          on-click:
+            to_tendenza:
+              type: switch_scene
+              scene: tendenza
+          children:
+            label:
+              type: text
+              position: 55 12
+              text: "Tendenza"
+              font: "interextrabold"
+              font-size: 29
+              color: 255 255 255
+            icon:
+              type: image
+              position: 213 14
+              size: 28 28
+              image:
+                name: "star.png"
+            icon2:
+              type: image
+              position: 9 14
+              size: 28 28
+              image:
+                name: "star.png"
+
+        button_uccisioni:
+          type: button
+          position: 898 540
+          size: 220 60
+          color: 0 170 255 220
+          corner-radius: 30
+          outline-color: 0 210 255 255
+          outline-width: 3
+          on-hover-color: 0 190 255 255
+          children:
+            label:
+              type: text
+              position: 70 12
+              text: "Uccisioni"
+              font: "interextrabold"
+              font-size: 29
+              color: 255 255 255
+            icon:
+              type: image
+              position: 15 12
+              size: 38 38
+              image:
+                name: "sword.png"
+
+        button_morti:
+          type: button
+          position: 1150 505
+          size: 190 60
+          color: 0 0 0 120
+          corner-radius: 30
+          outline-color: 0 0 0 0
+          outline-width: 0
+          on-hover-outline-color: 0 210 255 255
+          on-hover-outline-width: 3
+          on-hover-color: 20 20 20 180
+          on-click:
+            to_morti:
+              type: switch_scene
+              scene: morti
+          children:
+            label:
+              type: text
+              position: 60 12
+              text: "Morti"
+              font: "interextrabold"
+              font-size: 29
+              color: 255 255 255
+            icon:
+              type: image
+              position: 10 10
+              size: 38 38
+              image:
+                name: "morti.png"
+
+  uccisioni_totale:
+    background:
+      type: background
+      position: 0 0
+      size: max max
+      color: black
+      children:
+
+        main_image:
+          type: image
+          position: 0 0
+          size: "100% 100%"
+          image:
+            name: "banner.png"
+
+        # LOGO IMPERIUM (uguale alle altre scene)
+       
+        logo_button:
+          type: button
+          position: 1040 40
+          size: 300 140
+          color: 0 0 0 0
+          corner-radius: 30
+          outline-color: 0 0 0 0
+          outline-width: 0
+          on-hover-color: 0 0 0 120
+          on-hover-outline-color: 200 40 40 220
+          on-hover-outline-width: 3
+          on-click:
+            open_store:
+              type: command
+              execute-from-console: true
+              command:
+                - 'tellraw %player_name% {"text":"§a§lVisita il nostro store: ","extra":[{"text":"store.imperiumcity.it","bold":true,"underlined":true,"color":"white","clickEvent":{"action":"open_url","value":"https://store.imperiumcity.it"}}]}'
+                - 'title %player_name% title {"text":"Visita il nostro store sotto","color":"green","bold":true}'
+                - 'title %player_name% subtitle {"text":"store.imperiumcity.it","color":"white","bold":true}'
+          children:
+            logo_image:
+              type: image
+              position: 30 -23
+              size: 250 210
+              image:
+                name: "logo.png"
+
+        # TITOLO - TOTALE
+        kills_title:
+          type: text
+          position: 80 70
+          text: "Classifica Uccisioni - Totale"
+          font: "interextrabold"
+          font-size: 34
+          color: 255 255 255
+
+        #####################################
+        #   COLONNE TOP 1-10 (TOTALE)
+        #####################################
+
+        # --- COLONNA SINISTRA (1-5) ---
+
+        kills_row_bg_1:
+          type: button
+          position: 60 138
+          size: 480 40
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 20
+          outline-color: 0 0 0 0
+          outline-width: 0
+          children:
+            head_1:
+              type: head_2d
+              position: 10 5
+              size: 30 30
+              skin: "%imperiumuser_top1kills_name%"
+            name_1:
+              type: text
+              position: 60 7
+              text: "1. %imperiumuser_top1kills_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            value_1:
+              type: text
+              position: -50 7
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_top1kills_value%"
+              font: "interextrabold"
+              font-size: 24
+              color: 255 215 0
+            icon_1:
+              type: image
+              position: -10 6
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "kill.png"
+
+        kills_row_bg_2:
+          type: button
+          position: 60 184
+          size: 480 40
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 20
+          outline-color: 0 0 0 0
+          outline-width: 0
+          children:
+            head_2:
+              type: head_2d
+              position: 10 5
+              size: 30 30
+              skin: "%imperiumuser_top2kills_name%"
+            name_2:
+              type: text
+              position: 60 7
+              text: "2. %imperiumuser_top2kills_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            value_2:
+              type: text
+              position: -50 7
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_top2kills_value%"
+              font: "interextrabold"
+              font-size: 24
+              color: 255 215 0
+            icon_2:
+              type: image
+              position: -10 6
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "kill.png"
+
+        kills_row_bg_3:
+          type: button
+          position: 60 230
+          size: 480 40
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 20
+          outline-color: 0 0 0 0
+          outline-width: 0
+          children:
+            head_3:
+              type: head_2d
+              position: 10 5
+              size: 30 30
+              skin: "%imperiumuser_top3kills_name%"
+            name_3:
+              type: text
+              position: 60 7
+              text: "3. %imperiumuser_top3kills_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            value_3:
+              type: text
+              position: -50 7
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_top3kills_value%"
+              font: "interextrabold"
+              font-size: 24
+              color: 255 215 0
+            icon_3:
+              type: image
+              position: -10 6
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "kill.png"
+
+        kills_row_bg_4:
+          type: button
+          position: 60 276
+          size: 480 40
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 20
+          outline-color: 0 0 0 0
+          outline-width: 0
+          children:
+            head_4:
+              type: head_2d
+              position: 10 5
+              size: 30 30
+              skin: "%imperiumuser_top4kills_name%"
+            name_4:
+              type: text
+              position: 60 7
+              text: "4. %imperiumuser_top4kills_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            value_4:
+              type: text
+              position: -50 7
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_top4kills_value%"
+              font: "interextrabold"
+              font-size: 24
+              color: 255 215 0
+            icon_4:
+              type: image
+              position: -10 6
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "kill.png"
+
+        kills_row_bg_5:
+          type: button
+          position: 60 322
+          size: 480 40
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 20
+          outline-color: 0 0 0 0
+          outline-width: 0
+          children:
+            head_5:
+              type: head_2d
+              position: 10 5
+              size: 30 30
+              skin: "%imperiumuser_top5kills_name%"
+            name_5:
+              type: text
+              position: 60 7
+              text: "5. %imperiumuser_top5kills_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            value_5:
+              type: text
+              position: -50 7
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_top5kills_value%"
+              font: "interextrabold"
+              font-size: 24
+              color: 255 215 0
+            icon_5:
+              type: image
+              position: -10 6
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "kill.png"
+
+        # --- COLONNA DESTRA (6-10) ---
+
+        kills_row_bg_6:
+          type: button
+          position: 550 138
+          size: 480 40
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 20
+          outline-color: 0 0 0 0
+          outline-width: 0
+          children:
+            head_6:
+              type: head_2d
+              position: 10 5
+              size: 30 30
+              skin: "%imperiumuser_top6kills_name%"
+            name_6:
+              type: text
+              position: 60 7
+              text: "6. %imperiumuser_top6kills_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            value_6:
+              type: text
+              position: -50 7
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_top6kills_value%"
+              font: "interextrabold"
+              font-size: 24
+              color: 255 215 0
+            icon_6:
+              type: image
+              position: -10 6
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "kill.png"
+
+        kills_row_bg_7:
+          type: button
+          position: 550 184
+          size: 480 40
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 20
+          outline-color: 0 0 0 0
+          outline-width: 0
+          children:
+            head_7:
+              type: head_2d
+              position: 10 5
+              size: 30 30
+              skin: "%imperiumuser_top7kills_name%"
+            name_7:
+              type: text
+              position: 60 7
+              text: "7. %imperiumuser_top7kills_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            value_7:
+              type: text
+              position: -50 7
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_top7kills_value%"
+              font: "interextrabold"
+              font-size: 24
+              color: 255 215 0
+            icon_7:
+              type: image
+              position: -10 6
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "kill.png"
+
+        kills_row_bg_8:
+          type: button
+          position: 550 230
+          size: 480 40
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 20
+          outline-color: 0 0 0 0
+          outline-width: 0
+          children:
+            head_8:
+              type: head_2d
+              position: 10 5
+              size: 30 30
+              skin: "%imperiumuser_top8kills_name%"
+            name_8:
+              type: text
+              position: 60 7
+              text: "8. %imperiumuser_top8kills_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            value_8:
+              type: text
+              position: -50 7
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_top8kills_value%"
+              font: "interextrabold"
+              font-size: 24
+              color: 255 215 0
+            icon_8:
+              type: image
+              position: -10 6
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "kill.png"
+
+        kills_row_bg_9:
+          type: button
+          position: 550 276
+          size: 480 40
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 20
+          outline-color: 0 0 0 0
+          outline-width: 0
+          children:
+            head_9:
+              type: head_2d
+              position: 10 5
+              size: 30 30
+              skin: "%imperiumuser_top9kills_name%"
+            name_9:
+              type: text
+              position: 60 7
+              text: "9. %imperiumuser_top9kills_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            value_9:
+              type: text
+              position: -50 7
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_top9kills_value%"
+              font: "interextrabold"
+              font-size: 24
+              color: 255 215 0
+            icon_9:
+              type: image
+              position: -10 6
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "kill.png"
+
+        kills_row_bg_10:
+          type: button
+          position: 550 322
+          size: 480 40
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 20
+          outline-color: 0 0 0 0
+          outline-width: 0
+          children:
+            head_10:
+              type: head_2d
+              position: 10 5
+              size: 30 30
+              skin: "%imperiumuser_top10kills_name%"
+            name_10:
+              type: text
+              position: 60 7
+              text: "10. %imperiumuser_top10kills_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            value_10:
+              type: text
+              position: -50 7
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_top10kills_value%"
+              font: "interextrabold"
+              font-size: 24
+              color: 255 215 0
+            icon_10:
+              type: image
+              position: -10 6
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "kill.png"
+
+        #####################################
+        #  BARRA DEL GIOCATORE CHE GUARDA
+        #####################################
+
+        kills_self_bar:
+          type: button
+          position: 220 395
+          size: 720 60
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 25
+          outline-color: 255 215 0 255
+          outline-width: 2
+          children:
+            self_head:
+              type: head_2d
+              position: 20 13
+              size: 34 34
+              skin: "%player_name%"
+            self_rank:
+              type: text
+              position: 80 16
+              text: "#%imperiumuser_classifica_kills%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 215 0
+            self_name:
+              type: text
+              position: 240 16
+              text: "%player_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            self_value:
+              type: text
+              position: -50 16
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_classificakills_value%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            self_icon:
+              type: image
+              position: -10 15
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "kill.png"
+
+        #####################################
+        #  PULSANTI CLASSIFICA A DESTRA
+        #####################################
+
+        # Settimanale (cliccabile – sopra)
+        classifica_settimanale_panel:
+          type: button
+          position: 1070 185
+          size: 260 90
+          color: 0 0 0 150
+          on-hover-color: 0 0 0 150
+          corner-radius: 25
+          outline-color: 60 60 60 220
+          outline-width: 2
+          on-hover-outline-color: 200 40 40 220
+          on-hover-outline-width: 3
+          on-click:
+            to_settimanale:
+              type: switch_scene
+              scene: uccisioni
+          children:
+            classifica_sett_label:
+              type: text
+              position: 20 10
+              text: "Classifica"
+              font-size: 22
+              color: 255 255 255
+            settimanale_label:
+              type: text
+              position: 20 40
+              text: "Settimanale"
+              font: "interextrabold"
+              font-size: 30
+              color: 255 255 255
+            sett_underline:
+              type: button
+              position: 10 74
+              size: 200 4
+              color: 120 120 120 220
+              corner-radius: 2
+              outline-color: 0 0 0 0
+              outline-width: 0
+
+        # Giornaliera (cliccabile – centro)
+        classifica_giornaliera_panel:
+          type: button
+          position: 1070 285
+          size: 260 90
+          color: 0 0 0 150
+          on-hover-color: 0 0 0 150
+          corner-radius: 25
+          outline-color: 60 60 60 220
+          outline-width: 2
+          on-hover-outline-color: 200 40 40 220
+          on-hover-outline-width: 3
+          on-click:
+            to_giornaliera:
+              type: switch_scene
+              scene: uccisioni_giornaliera
+          children:
+            classifica_gior_label:
+              type: text
+              position: 20 10
+              text: "Classifica"
+              font-size: 22
+              color: 255 255 255
+            giornaliera_label:
+              type: text
+              position: 20 40
+              text: "Giornaliera"
+              font: "interextrabold"
+              font-size: 30
+              color: 255 255 255
+            gior_underline:
+              type: button
+              position: 10 74
+              size: 200 4
+              color: 120 120 120 220
+              corner-radius: 2
+              outline-color: 0 0 0 0
+              outline-width: 0
+
+        # Totale (ATTIVA – sotto)
+        classifica_totale_panel:
+          type: button
+          position: 1070 385
+          size: 260 90
+          color: 0 0 0 150
+          on-hover-color: 0 0 0 150
+          corner-radius: 25
+          outline-color: 200 40 40 220
+          outline-width: 3
+          children:
+            classifica_totale_label:
+              type: text
+              position: 20 10
+              text: "Classifica"
+              font-size: 22
+              color: 255 255 255
+            totale_label:
+              type: text
+              position: 20 40
+              text: "Totale"
+              font: "interextrabold"
+              font-size: 30
+              color: 255 215 0
+            totale_underline:
+              type: button
+              position: 10 74
+              size: 200 4
+              color: 200 40 40 220
+              corner-radius: 2
+              outline-color: 0 0 0 0
+              outline-width: 0
+
+        #####################################
+        #  MENU IN BASSO (UGUALE)
+        #####################################
+
+        button_ranking:
+          type: button
+          position: 70 505
+          size: 190 60
+          color: 0 0 0 120
+          corner-radius: 30
+          outline-color: 0 0 0 0
+          outline-width: 0
+          on-hover-outline-color: 0 210 255 255
+          on-hover-outline-width: 3
+          on-hover-color: 20 20 20 180
+          on-click:
+            to_ranking:
+              type: switch_scene
+              scene: ranking
+          children:
+            label:
+              type: text
+              position: 15 12
+              text: "Ranking"
+              font: "interextrabold"
+              font-size: 29
+              color: 255 255 255
+            icon:
+              type: image
+              position: 140 8
+              size: 38 38
+              image:
+                name: "ranking.png"
+
+        button_fazioni:
+          type: button
+          position: 290 540
+          size: 220 60
+          color: 0 0 0 120
+          corner-radius: 30
+          outline-color: 0 0 0 0
+          outline-width: 0
+          on-hover-outline-color: 0 210 255 255
+          on-hover-outline-width: 3
+          on-hover-color: 20 20 20 180
+          on-click:
+            to_fazioni:
+              type: switch_scene
+              scene: fazioni
+          children:
+            label:
+              type: text
+              position: 52 12
+              text: "Fazioni"
+              font: "interextrabold"
+              font-size: 29
+              color: 255 255 255
+            icon:
+              type: image
+              position: 168 12
+              size: 38 38
+              image:
+                name: "scudo.png"
+
+        button_tendenza:
+          type: button
+          position: 573 550
+          size: 250 60
+          color: 0 0 0 120
+          corner-radius: 30
+          outline-color: 0 0 0 0
+          outline-width: 0
+          on-hover-outline-color: 0 210 255 255
+          on-hover-outline-width: 3
+          on-hover-color: 20 20 20 180
+          on-click:
+            to_tendenza:
+              type: switch_scene
+              scene: tendenza
+          children:
+            label:
+              type: text
+              position: 55 12
+              text: "Tendenza"
+              font: "interextrabold"
+              font-size: 29
+              color: 255 255 255
+            icon:
+              type: image
+              position: 213 14
+              size: 28 28
+              image:
+                name: "star.png"
+            icon2:
+              type: image
+              position: 9 14
+              size: 28 28
+              image:
+                name: "star.png"
+
+        button_uccisioni:
+          type: button
+          position: 898 540
+          size: 220 60
+          color: 0 170 255 220
+          corner-radius: 30
+          outline-color: 0 210 255 255
+          outline-width: 3
+          on-hover-color: 0 190 255 255
+          children:
+            label:
+              type: text
+              position: 70 12
+              text: "Uccisioni"
+              font: "interextrabold"
+              font-size: 29
+              color: 255 255 255
+            icon:
+              type: image
+              position: 15 12
+              size: 38 38
+              image:
+                name: "sword.png"
+
+        button_morti:
+          type: button
+          position: 1150 505
+          size: 190 60
+          color: 0 0 0 120
+          corner-radius: 30
+          outline-color: 0 0 0 0
+          outline-width: 0
+          on-hover-outline-color: 0 210 255 255
+          on-hover-outline-width: 3
+          on-hover-color: 20 20 20 180
+          on-click:
+            to_morti:
+              type: switch_scene
+              scene: morti
+          children:
+            label:
+              type: text
+              position: 60 12
+              text: "Morti"
+              font: "interextrabold"
+              font-size: 29
+              color: 255 255 255
+            icon:
+              type: image
+              position: 10 10
+              size: 38 38
+              image:
+                name: "morti.png"
+
+
+  ######################################################
+  # SCENA: MORTI  (Morti evidenziata)
+  ######################################################
+  morti:
+    background:
+      type: background
+      position: 0 0
+      size: max max
+      color: black
+      children:
+
+        main_image:
+          type: image
+          position: 0 0
+          size: "100% 100%"
+          image:
+            name: "banner.png"
+
+        # LOGO IMPERIUM IN ALTO A DESTRA
+        logo_button:
+          type: button
+          position: 1040 40
+          size: 300 150
+          color: 0 0 0 0
+          corner-radius: 30
+          outline-color: 0 0 0 0
+          outline-width: 0
+          on-hover-color: 0 0 0 120
+          on-hover-outline-color: 200 40 40 220
+          on-hover-outline-width: 3
+          on-click:
+            open_store:
+              type: command
+              execute-from-console: true
+              command:
+                - 'tellraw %player_name% {"text":"§a§lVisita il nostro store: ","extra":[{"text":"store.imperiumcity.it","bold":true,"underlined":true,"color":"white","clickEvent":{"action":"open_url","value":"https://store.imperiumcity.it"}}]}'
+                - 'title %player_name% title {"text":"Visita il nostro store sotto","color":"green","bold":true}'
+                - 'title %player_name% subtitle {"text":"store.imperiumcity.it","color":"white","bold":true}'
+          children:
+            logo_image:
+              type: image
+              position: 20 5
+              size: 250 140
+              image:
+                name: "logo.png"
+
+        # TITOLO - SETTIMANALE
+        deaths_title:
+          type: text
+          position: 80 70
+          text: "Classifica Morti - Settimanale"
+          font: "interextrabold"
+          font-size: 34
+          color: 255 255 255
+
+        #####################################
+        #   COLONNE TOP 1-10 (SETTIMANALE)
+        #####################################
+
+        # --- COLONNA SINISTRA (1-5) ---
+
+        deaths_row_bg_1:
+          type: button
+          position: 60 138
+          size: 480 40
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 20
+          outline-color: 0 0 0 0
+          outline-width: 0
+          children:
+            head_1:
+              type: head_2d
+              position: 10 5
+              size: 30 30
+              skin: "%imperiumuser_topsett1deaths_name%"
+            name_1:
+              type: text
+              position: 60 7
+              text: "1. %imperiumuser_topsett1deaths_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            value_1:
+              type: text
+              position: -50 7
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_topsett1deaths_value%"
+              font: "interextrabold"
+              font-size: 24
+              color: 255 215 0
+            icon_1:
+              type: image
+              position: -10 6
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "mortiplayer.png"
+
+        deaths_row_bg_2:
+          type: button
+          position: 60 184
+          size: 480 40
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 20
+          outline-color: 0 0 0 0
+          outline-width: 0
+          children:
+            head_2:
+              type: head_2d
+              position: 10 5
+              size: 30 30
+              skin: "%imperiumuser_topsett2deaths_name%"
+            name_2:
+              type: text
+              position: 60 7
+              text: "2. %imperiumuser_topsett2deaths_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            value_2:
+              type: text
+              position: -50 7
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_topsett2deaths_value%"
+              font: "interextrabold"
+              font-size: 24
+              color: 255 215 0
+            icon_2:
+              type: image
+              position: -10 6
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "mortiplayer.png"
+
+        deaths_row_bg_3:
+          type: button
+          position: 60 230
+          size: 480 40
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 20
+          outline-color: 0 0 0 0
+          outline-width: 0
+          children:
+            head_3:
+              type: head_2d
+              position: 10 5
+              size: 30 30
+              skin: "%imperiumuser_topsett3deaths_name%"
+            name_3:
+              type: text
+              position: 60 7
+              text: "3. %imperiumuser_topsett3deaths_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            value_3:
+              type: text
+              position: -50 7
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_topsett3deaths_value%"
+              font: "interextrabold"
+              font-size: 24
+              color: 255 215 0
+            icon_3:
+              type: image
+              position: -10 6
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "mortiplayer.png"
+
+        deaths_row_bg_4:
+          type: button
+          position: 60 276
+          size: 480 40
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 20
+          outline-color: 0 0 0 0
+          outline-width: 0
+          children:
+            head_4:
+              type: head_2d
+              position: 10 5
+              size: 30 30
+              skin: "%imperiumuser_topsett4deaths_name%"
+            name_4:
+              type: text
+              position: 60 7
+              text: "4. %imperiumuser_topsett4deaths_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            value_4:
+              type: text
+              position: -50 7
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_topsett4deaths_value%"
+              font: "interextrabold"
+              font-size: 24
+              color: 255 215 0
+            icon_4:
+              type: image
+              position: -10 6
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "mortiplayer.png"
+
+        deaths_row_bg_5:
+          type: button
+          position: 60 322
+          size: 480 40
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 20
+          outline-color: 0 0 0 0
+          outline-width: 0
+          children:
+            head_5:
+              type: head_2d
+              position: 10 5
+              size: 30 30
+              skin: "%imperiumuser_topsett5deaths_name%"
+            name_5:
+              type: text
+              position: 60 7
+              text: "5. %imperiumuser_topsett5deaths_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            value_5:
+              type: text
+              position: -50 7
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_topsett5deaths_value%"
+              font: "interextrabold"
+              font-size: 24
+              color: 255 215 0
+            icon_5:
+              type: image
+              position: -10 6
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "mortiplayer.png"
+
+        # --- COLONNA DESTRA (6-10) ---
+
+        deaths_row_bg_6:
+          type: button
+          position: 550 138
+          size: 480 40
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 20
+          outline-color: 0 0 0 0
+          outline-width: 0
+          children:
+            head_6:
+              type: head_2d
+              position: 10 5
+              size: 30 30
+              skin: "%imperiumuser_topsett6deaths_name%"
+            name_6:
+              type: text
+              position: 60 7
+              text: "6. %imperiumuser_topsett6deaths_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            value_6:
+              type: text
+              position: -50 7
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_topsett6deaths_value%"
+              font: "interextrabold"
+              font-size: 24
+              color: 255 215 0
+            icon_6:
+              type: image
+              position: -10 6
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "mortiplayer.png"
+
+        deaths_row_bg_7:
+          type: button
+          position: 550 184
+          size: 480 40
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 20
+          outline-color: 0 0 0 0
+          outline-width: 0
+          children:
+            head_7:
+              type: head_2d
+              position: 10 5
+              size: 30 30
+              skin: "%imperiumuser_topsett7deaths_name%"
+            name_7:
+              type: text
+              position: 60 7
+              text: "7. %imperiumuser_topsett7deaths_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            value_7:
+              type: text
+              position: -50 7
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_topsett7deaths_value%"
+              font: "interextrabold"
+              font-size: 24
+              color: 255 215 0
+            icon_7:
+              type: image
+              position: -10 6
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "mortiplayer.png"
+
+        deaths_row_bg_8:
+          type: button
+          position: 550 230
+          size: 480 40
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 20
+          outline-color: 0 0 0 0
+          outline-width: 0
+          children:
+            head_8:
+              type: head_2d
+              position: 10 5
+              size: 30 30
+              skin: "%imperiumuser_topsett8deaths_name%"
+            name_8:
+              type: text
+              position: 60 7
+              text: "8. %imperiumuser_topsett8deaths_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            value_8:
+              type: text
+              position: -50 7
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_topsett8deaths_value%"
+              font: "interextrabold"
+              font-size: 24
+              color: 255 215 0
+            icon_8:
+              type: image
+              position: -10 6
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "mortiplayer.png"
+
+        deaths_row_bg_9:
+          type: button
+          position: 550 276
+          size: 480 40
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 20
+          outline-color: 0 0 0 0
+          outline-width: 0
+          children:
+            head_9:
+              type: head_2d
+              position: 10 5
+              size: 30 30
+              skin: "%imperiumuser_topsett9deaths_name%"
+            name_9:
+              type: text
+              position: 60 7
+              text: "9. %imperiumuser_topsett9deaths_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            value_9:
+              type: text
+              position: -50 7
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_topsett9deaths_value%"
+              font: "interextrabold"
+              font-size: 24
+              color: 255 215 0
+            icon_9:
+              type: image
+              position: -10 6
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "mortiplayer.png"
+
+        deaths_row_bg_10:
+          type: button
+          position: 550 322
+          size: 480 40
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 20
+          outline-color: 0 0 0 0
+          outline-width: 0
+          children:
+            head_10:
+              type: head_2d
+              position: 10 5
+              size: 30 30
+              skin: "%imperiumuser_topsett10deaths_name%"
+            name_10:
+              type: text
+              position: 60 7
+              text: "10. %imperiumuser_topsett10deaths_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            value_10:
+              type: text
+              position: -50 7
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_topsett10deaths_value%"
+              font: "interextrabold"
+              font-size: 24
+              color: 255 215 0
+            icon_10:
+              type: image
+              position: -10 6
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "mortiplayer.png"
+
+        #####################################
+        #  BARRA DEL GIOCATORE CHE GUARDA
+        #####################################
+
+        deaths_self_bar:
+          type: button
+          position: 220 395
+          size: 720 60
+          color: 0 0 0 140
+          on-hover-color: 0 0 0 140
+          corner-radius: 25
+          outline-color: 255 215 0 255
+          outline-width: 2
+          children:
+            self_head:
+              type: head_2d
+              position: 20 13
+              size: 34 34
+              skin: "%player_name%"
+            self_rank:
+              type: text
+              position: 80 16
+              text: "#%imperiumuser_classificasett_morti%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 215 0
+            self_name:
+              type: text
+              position: 240 16
+              text: "%player_name%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            self_value:
+              type: text
+              position: -50 16
+              size: 150 26
+              alignment: right
+              vertical-alignment: top
+              text: "%imperiumuser_classificasettmorti_value%"
+              font: "interextrabold"
+              font-size: 26
+              color: 255 255 255
+            self_icon:
+              type: image
+              position: -10 15
+              alignment: right
+              vertical-alignment: top
+              size: 28 28
+              image:
+                name: "mortiplayer.png"
+
+        #####################################
+        #  PULSANTI CLASSIFICA A DESTRA
+        #####################################
+
+        # Settimanale (ATTIVO in questa scena)
+        classifica_settimanale_panel:
+          type: button
+          position: 1070 185
+          size: 260 90
+          color: 0 0 0 150
+          on-hover-color: 0 0 0 150
+          corner-radius: 25
+          outline-color: 200 40 40 220
+          outline-width: 3
+          children:
+            classifica_sett_label:
+              type: text
+              position: 20 10
+              text: "Classifica"
+              font-size: 22
+              color: 255 255 255
+            settimanale_label:
+              type: text
+              position: 20 40
+              text: "Settimanale"
+              font: "interextrabold"
+              font-size: 30
+              color: 255 215 0
+            sett_underline:
+              type: button
+              position: 10 74
+              size: 200 4
+              color: 200 40 40 220
+              corner-radius: 2
+              outline-color: 0 0 0 0
+              outline-width: 0
+
+        # Giornaliera (cliccabile – centro)
+        classifica_giornaliera_panel:
+          type: button
+          position: 1070 285
+          size: 260 90
+          color: 0 0 0 150
+          on-hover-color: 0 0 0 150
+          corner-radius: 25
+          outline-color: 60 60 60 220
+          outline-width: 2
+          on-hover-outline-color: 200 40 40 220
+          on-hover-outline-width: 3
+          on-click:
+            to_giornaliera:
+              type: switch_scene
+              scene: morti_giornaliera
+          children:
+            classifica_gior_label:
+              type: text
+              position: 20 10
+              text: "Classifica"
+              font-size: 22
+              color: 255 255 255
+            giornaliera_label:
+              type: text
+              position: 20 40
+              text: "Giornaliera"
+              font: "interextrabold"
+              font-size: 30
+              color: 255 255 255
+            gior_underline:
+              type: button
+              position: 10 74
+              size: 200 4
+              color: 120 120 120 220
+              corner-radius: 2
+              outline-color: 0 0 0 0
+              outline-width: 0
+
+        # Totale (cliccabile – sotto)
+        classifica_totale_panel:
+          type: button
+          position: 1070 385
+          size: 260 90
+          color: 0 0 0 150
+          on-hover-color: 0 0 0 150
+          corner-radius: 25
+          outline-color: 60 60 60 220
+          outline-width: 2
+          on-hover-outline-color: 200 40 40 220
+          on-hover-outline-width: 3
+          on-click:
+            to_totale:
+              type: switch_scene
+              scene: morti_totale
+          children:
+            classifica_totale_label:
+              type: text
+              position: 20 10
+              text: "Classifica"
+              font-size: 22
+              color: 255 255 255
+            totale_label:
+              type: text
+              position: 20 40
+              text: "Totale"
+              font: "interextrabold"
+              font-size: 30
+              color: 255 255 255
+            totale_underline:
+              type: button
+              position: 10 74
+              size: 200 4
+              color: 120 120 120 220
+              corner-radius: 2
+              outline-color: 0 0 0 0
+              outline-width: 0
+
+        #####################################
+        #  MENU IN BASSO
+        #####################################
+
+        button_ranking:
+          type: button
+          position: 70 505
+          size: 190 60
+          color: 0 0 0 120
+          corner-radius: 30
+          outline-color: 0 0 0 0
+          outline-width: 0
+          on-hover-outline-color: 0 210 255 255
+          on-hover-outline-width: 3
+          on-hover-color: 20 20 20 180
+          on-click:
+            to_ranking:
+              type: switch_scene
+              scene: ranking
+          children:
+            label:
+              type: text
+              position: 15 12
+              text: "Ranking"
+              font: "interextrabold"
+              font-size: 29
+              color: 255 255 255
+            icon:
+              type: image
+              position: 140 8
+              size: 38 38
+              image:
+                name: "ranking.png"
+
+        button_fazioni:
+          type: button
+          position: 290 540
+          size: 220 60
+          color: 0 0 0 120
+          corner-radius: 30
+          outline-color: 0 0 0 0
+          outline-width: 0
+          on-hover-outline-color: 0 210 255 255
+          on-hover-outline-width: 3
+          on-hover-color: 20 20 20 180
+          on-click:
+            to_fazioni:
+              type: switch_scene
+              scene: fazioni
+          children:
+            label:
+              type: text
+              position: 52 12
+              text: "Fazioni"
+              font: "interextrabold"
+              font-size: 29
+              color: 255 255 255
+            icon:
+              type: image
+              position: 168 12
+              size: 38 38
+              image:
+                name: "scudo.png"
+
+        button_tendenza:
+          type: button
+          position: 573 550
+          size: 250 60
+          color: 0 0 0 120
+          corner-radius: 30
+          outline-color: 0 0 0 0
+          outline-width: 0
+          on-hover-outline-color: 0 210 255 255
+          on-hover-outline-width: 3
+          on-hover-color: 20 20 20 180
+          on-click:
+            to_tendenza:
+              type: switch_scene
+              scene: tendenza
+          children:
+            label:
+              type: text
+              position: 55 12
+              text: "Tendenza"
+              font: "interextrabold"
+              font-size: 29
+              color: 255 255 255
+            icon:
+              type: image
+              position: 213 14
+              size: 28 28
+              image:
+                name: "star.png"
+            icon2:
+              type: image
+              position: 9 14
+              size: 28 28
+              image:
+                name: "star.png"
+
+        # UCCISIONI neutro, cliccabile
+        button_uccisioni:
+          type: button
+          position: 898 540
+          size: 220 60
+          color: 0 0 0 120
+          corner-radius: 30
+          outline-color: 0 0 0 0
+          outline-width: 0
+          on-hover-outline-color: 0 210 255 255
+          on-hover-outline-width: 3
+          on-hover-color: 20 20 20 180
+          on-click:
+            to_uccisioni:
+              type: switch_scene
+              scene: uccisioni
+          children:
+            label:
+              type: text
+              position: 70 12
+              text: "Uccisioni"
+              font: "interextrabold"
+              font-size: 29
+              color: 255 255 255
+            icon:
+              type: image
+              position: 15 12
+              size: 38 38
+              image:
+                name: "sword.png"
+
+        # MORTI attivo
+        button_morti:
+          type: button
+          position: 1150 505
+          size: 190 60
+          color: 0 170 255 220
+          corner-radius: 30
+          outline-color: 0 210 255 255
+          outline-width: 3
+          on-hover-color: 0 190 255 255
+          children:
+            label:
+              type: text
+              position: 60 12
+              text: "Morti"
+              font: "interextrabold"
+              font-size: 29
+              color: 255 255 255
+            icon:
+              type: image
+              position: 10 10
+              size: 38 38
+              image:
+                name: "morti.png"
+
+
+displays:
+  default:
+    invisible: true
+    glow: true
+    distance: 30.0
+    direction: west
+    down: down
+    width: 11
+    height: 5
+    top-left:
+      world: imperium
+      x: 139.0
+      y: 73.0
+      z: 72.0
+
+internal:
+  plugin-version: 2.4.0
